@@ -44,4 +44,3 @@ require (
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
 
-replace github.com/livebud/bud => github.com/012e/bud v0.1.5-0.20220809023916-624b0d550a85
