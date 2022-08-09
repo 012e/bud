@@ -252,7 +252,8 @@ e2e: e2e.bud.build
 
 e2e.bud.build:
 	# GOPRIVATE=github.com/livebud/bud go install github.com/livebud/bud@$(BRANCH_NAME)
-	echo "replace github.com/livebud/bud => github.com/$(GITHUB_REPO)" >> go.mod
+	go mod edit -replace github.com/livebud/bud=github.com/012e/bud@auto-infer-module-ci && go mod tidy
+
 	GOPRIVATE=github.com/$(GITHUB_REPO) go install github.com/$(GITHUB_REPO)@$(BRANCH_NAME)
 	git clone https://github.com/livebud/welcome
 	( cd welcome && \
