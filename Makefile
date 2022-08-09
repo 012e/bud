@@ -245,17 +245,20 @@ publish:
 ##
 
 BRANCH_NAME ?= $(or $(GITHUB_HEAD_REF),main)
+GITHUB_REPO ?= $(or $(GITHUB_REPOSITORY),livebud/bud)
 GOPATH := $(shell go env GOPATH)
 
 e2e: e2e.bud.build
 
 e2e.bud.build:
-	GOPRIVATE=github.com/livebud/bud go install github.com/livebud/bud@$(BRANCH_NAME)
+	# GOPRIVATE=github.com/livebud/bud go install github.com/livebud/bud@$(BRANCH_NAME)
+	GOPRIVATE=github.com/$(GITHUB_REPO) go install github.com/$(GITHUB_REPO)@$(BRANCH_NAME)
 	git clone https://github.com/livebud/welcome
 	( cd welcome && \
 		npm install && \
 		go mod tidy && \
-		GOPRIVATE=github.com/livebud/bud go get github.com/livebud/bud@$(BRANCH_NAME) \
+		# GOPRIVATE=github.com/livebud/bud go get github.com/livebud/bud@$(BRANCH_NAME) \
+		GOPRIVATE=github.com/$(GITHUB_REPO) go get github.com/$(GITHUB_REPO)@$(BRANCH_NAME) \
 	)
 	$(GOPATH)/bin/bud -C welcome build
 	./welcome/bud/app -h
