@@ -2,9 +2,9 @@ name: Test
 
 on:
   push:
-    branches: [main]
+    branches: ["*"]
   pull_request:
-    branches: [main]
+    branches: ["*"]
 
 jobs:
   bud:
@@ -14,8 +14,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
-        go: ['1.17', '1.18']
-        node: ['16']
+        go: ["1.17", "1.18"]
+        node: ["16"]
         include:
           - os: ubuntu-latest
             go: 1.18
@@ -40,7 +40,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
-          cache: 'npm'
+          cache: "npm"
           cache-dependency-path: |
             livebud/package-lock.json
             package-lock.json
